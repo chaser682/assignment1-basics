@@ -24,6 +24,8 @@ def are_optimizers_equal(optimizer1_state_dict, optimizer2_state_dict, atol=1e-8
     # Check if the keys of the main dictionaries are equal (e.g., 'state', 'param_groups')
     if set(optimizer1_state_dict.keys()) != set(optimizer2_state_dict.keys()):
         return False
+    # print("Koptimizer1_state_dict keys:", optimizer1_state_dict["param_groups"])
+    # print("Koptimizer2_state_dict keys:", optimizer2_state_dict["param_groups"])
 
     # Check parameter groups are identical
     if optimizer1_state_dict["param_groups"] != optimizer2_state_dict["param_groups"]:
@@ -119,3 +121,7 @@ def test_checkpointing(tmp_path):
         )
     # compare the optimizer state dicts
     assert are_optimizers_equal(original_optimizer_state, new_optimizer_state)
+
+if __name__ == "__main__":
+    from pathlib import Path
+    test_checkpointing(tmp_path = Path("./"))
